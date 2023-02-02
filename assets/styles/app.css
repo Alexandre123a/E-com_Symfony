@@ -1,0 +1,36 @@
+body {
+    background-color: aliceblue;
+}
+.navbar {
+    display: grid;
+    grid-template: 100% / repeat(10,10%);
+    width: 100%;
+    background-color: #555;
+}
+.navbar > * {
+    text-align: center;
+    padding: 12px;
+    color: white;
+    text-decoration: none;
+    font-size: 17px;
+}
+.navbar a:hover{
+    background-color: #000;
+}
+.home {
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+.myProfile {
+    grid-row-start: 1;
+    grid-column: 10/span 1;
+}
+.navbar form {
+    grid-row-start: 1;
+    grid-column: 2 / span 8;
+}
+.navbar form input{
+    display: block;
+    width: 95%;
+    align-content: center;
+}
