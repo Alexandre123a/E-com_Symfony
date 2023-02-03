@@ -1,8 +1,14 @@
 <div class="navbar">
     <a href="{{ path('app_acceuil') }}" class="home">Acceuil</a>
+    {% if app.request.getPathInfo != "/search" %}
+
     <form name="searchBar" action="search" method="get">
         <input type="text" name="keywords">
     </form>
+{% endif %}
+
+
+
     {% if is_granted('ROLE_USER') %}
         <a href="{{ path('app_profile') }}" class="myProfile">Mon Profil</a>
     {% else %}
