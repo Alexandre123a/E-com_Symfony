@@ -2,7 +2,7 @@
     <a href="{{ path('app_acceuil') }}" class="home">Acceuil</a>
     {% if app.request.getPathInfo != "/search" %}
 
-    <form name="searchBar" action="search" method="get">
+    <form name="searchBar" action="{{ path('app_search') }}" method="get">
         <input type="text" name="keywords">
     </form>
 {% endif %}

@@ -33,5 +33,47 @@ function showSlides(n) {
         slides[i].style.display = "none";
     }
     slides[slideIndex-1].style.display = "block";
+}
+
+
+let nextCarousel = document.getElementsByClassName('nextCarousel');
+let prevCarousel = document.getElementsByClassName('prevCarousel');
+
+
+/*
+nextCarousel[0].addEventListener('click',function () {
+    moveCarousel(1)
+
+});
+prevCarousel[0].addEventListener('click',function () {
+    moveCarousel(-1)
+
+})
+function moveCarousel(n){
+    let i;
+    let slides = document.getElementsByClassName("carouselSlides");
+
+    for (i = 0;i< slides.length;i++){
+
+        if (parseInt(slides[i].style.gridColumnStart) <= 5)
+        {
+            slides[i].style.display = "inline"
+        }
+console.log(parseInt(slides[i].style.gridColumnStart) + parseInt(n));
+        slides[i].style.gridColumnStart = parseInt(slides[i].style.gridColumnStart) + parseInt(n)+"";
+
+        if (parseInt(slides[i].style.gridColumnStart) < 1){
+            slides[i].style.display = "none";
+            slides[i].style.gridColumnStart = "13";
+
+        }
+        if (parseInt(slides[i].style.gridColumnStart) > 13){
+            slides[i].style.display = "inline";
+            slides[i].style.gridColumnStart = "1";
+
+        }
+    }
 
 }
+*/
+

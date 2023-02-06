@@ -22,6 +22,8 @@ Encore
      */
     .addEntry('app_acceuil','./assets/js/acceuil.js')
     .addEntry('app', './assets/app.js')
+    .addEntry('app_search','./assets/js/search.js')
+
     .addStyleEntry('css_acceuil','./assets/styles/acceuil.css')
     .addStyleEntry('css_register','./assets/styles/register.css')
     .addStyleEntry('css_login','./assets/styles/login.css')
