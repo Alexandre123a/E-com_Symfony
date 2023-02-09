@@ -19,5 +19,8 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress"
+    },
+    "dependencies": {
+        "faker": "^6.6.6"
     }
 }
