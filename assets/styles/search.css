@@ -15,9 +15,17 @@ a:visited{
     color: black;
 }
 
-.searchBar input {
-    width: 20em;
+#searchForm {
+    margin: 1em;
+    align-self: center;
     text-align: center;
+}
+#searchForm *{
+    margin: 5px;
+    border-radius: 10px;
+}
+form input[Type=Text]{
+    width: 20em;
 }
 .article-wrapper{
     display: grid;

@@ -6,6 +6,7 @@ use App\Entity\ArticleStock;
 use App\Entity\Genre;
 use App\Form\Type\SearchType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -25,9 +26,21 @@ class SearchForm extends AbstractType
                     'placeholder' =>'Rechercher'
                 ]
         ])
-        ->add('range',SearchType::class, [
-            'label' => 'Nombre de résultats',
-            'required' => false,
+        ->add('range',ChoiceType::class, [
+            'label' => 'Nombre de lignes',
+            'choices' => [
+                'default'=>"autre",
+                '1' => '1',
+                '2' => '2',
+                '3'=> '3',
+                '4'=> '4',
+                '5'=> '5',
+                '10'=> '10',
+                '50'=> '50',
+                '100'=> '100',
+                '250'=> '250',
+            ],
+
 
         ])
             ->add('submit',SubmitType::class)
