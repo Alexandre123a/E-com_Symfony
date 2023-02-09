@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('css_search') }}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('app_search') }}
+    {{ parent() }}
+{% endblock %}
+
+{% block title %}Hello SearchController!{% endblock %}
+
+{% block body %}
+
+    {{ form_start(searchForm,{'attr':{'id' : 'searchForm' }}) }}
+    {{ form_row(searchForm.keywords) }}
+    {{ form_row(searchForm.range) }}
+    {{ form_row(searchForm.submit) }}
+    {{ form_end(searchForm) }}
+<div id="article-wrapper" class="article-wrapper">
+{% include 'search/result.html.twig' %}
+
+</div>
+{% endblock %}

@@ -42,22 +42,15 @@
     </div>
 
     <div class="carousel-container">
+
+
+        {% for article in articles %}
+            {% dump article.0 %}
         <div class="carouselSlides">
-
-            <img src="{{ asset('build/images/paysage1.5e77a739.png') }}" >
-            <div> Meilleure Ventes</div>
-
-        </div>
-        <div class="carouselSlides">
-
-            <img src="{{ asset('build/images/paysage2.f1a0a073.png') }}" >
-            <div> Meilleure rapporte qualité prix</div>
-        </div>
-        {% for i in 0 .. 10 %}
-        <div class="carouselSlides">
-
+            <a href="{{ path('app_article_stock_show', {'id': article.0.id}) }}">
             <img src="{{ asset('build/images/paysage3.09f1f610.png') }}" >
-            <div> Vous allez aimé</div>
+            <div> {{ article.0.intitule }}</div>
+            </a>
         </div>
         {% endfor %}
 

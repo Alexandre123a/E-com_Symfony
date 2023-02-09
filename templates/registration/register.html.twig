@@ -15,13 +15,22 @@
     <h1>Register</h1>
 
     {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.mail) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
+    <div>
+        {{ form_label(registrationForm.mail) }}
+        {{ form_widget(registrationForm.mail) }}
+    </div>
+    <div>
+        {{ form_label(registrationForm.plainPassword, 'Password') }}
+        {{ form_widget(registrationForm.plainPassword) }}
+    </div>
     {{ form_row(registrationForm.tag) }}
         {{ form_row(registrationForm.agreeTerms) }}
-
         <button type="submit" class="btn">Register</button>
+
+        <div class="flash-error">
+            {{ form_errors(registrationForm.mail) }}
+            {{ form_errors(registrationForm.plainPassword) }}
+        </div>
+
     {{ form_end(registrationForm) }}
 {% endblock %}

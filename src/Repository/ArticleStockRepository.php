@@ -39,28 +39,49 @@ class ArticleStockRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return ArticleStock[] Returns an array of ArticleStock objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('a.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return ArticleStock[] Returns an array of ArticleStock objects
+     */
+    public function findByExampleField($value,$range): array
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->where('a.intitule LIKE :val')
+            ->orWhere('a.description LIKE :val')
+            ->setParameter('val',"%".$value."%")
+            ->setMaxResults($range)
+        ;
+        $query = $qb->getQuery();
+        return $query->execute();
+    }
 
-//    public function findOneBySomeField($value): ?ArticleStock
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findOneBySomeField($value): ?ArticleStock
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.exampleField = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+    public function findTenByRandom(): array
+    {
+        $maxIDQb = $this->createQueryBuilder('a')
+            ->select('MAX(a.id)')
+        ->getQuery();
+        $maxID = $maxIDQb->execute();
+        $returnValue = [];
+        $minIDQb = $this->createQueryBuilder('a')
+            ->select('MIN(a.id)')
+            ->getQuery();
+        $minID = $minIDQb->execute();
+
+        for($i=0;$i < 10;$i++) {
+            $idRandom= random_int($minID[0][1],$maxID[0][1]);
+            $returnValue[] = $this->createQueryBuilder('b')
+                ->where('b.id = :id')
+                ->setParameter('id',$idRandom)
+            ->getQuery()->execute();
+        }
+        return $returnValue;
+    }
 }

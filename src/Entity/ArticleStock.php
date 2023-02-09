@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\ArticleStockRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Persistence\ManagerRegistry;
+use http\Env\Response;
 
 #[ORM\Entity(repositoryClass: ArticleStockRepository::class)]
 class ArticleStock
@@ -92,5 +94,25 @@ class ArticleStock
         $this->idMarque = $idMarque;
 
         return $this;
+    }
+
+    #[Route('/article/stock/{id}', name: 'app_article_stock')]
+    public function show(ManagerRegistry $doctrine,int $id):Response
+    {
+        $article = $doctrine->getRepository(ArticleStock::class)->find($id);
+
+        if (!$article) {
+            throw $this->createNotFoundException(
+                'Pas d\'article pour cet ID'.$id
+            );
+        }
+        return $this->render('article_stock/articleById.html.twig', ['product'=>$article]);
+    }
+    #[Route('/search?keyword={name}', name: 'app_article_search')]
+    public function searchArticle(ManagerRegistry $doctrine,string $name):Response
+    {
+
+        $article = $doctrine->getRepository(ArticleStock::class)->findByExampleField($name);
+        return $this->render('search/index.html.twig', ['articles'=>$article]);
     }
 }

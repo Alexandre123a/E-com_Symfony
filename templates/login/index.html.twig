@@ -11,6 +11,12 @@
     {% if error %}
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
+    {% for message in app.flashes('sucess') %}
+        <div class="flash-sucess">
+            {{ message }}
+        </div>
+    {% endfor %}
+
 <form action="{{ path('app_login') }}" method="post">
     <div>
         <label for="username">Email:</label>

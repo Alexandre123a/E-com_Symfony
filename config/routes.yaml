@@ -11,3 +11,7 @@ app_acceuil:
 app_logout:
     path: /logout
     methods: GET
+
+app_search_article:
+    path: /article/search
+    methods: GET
