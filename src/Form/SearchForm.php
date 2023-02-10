@@ -47,10 +47,10 @@ class SearchForm extends AbstractType
             ->add('order', ChoiceType::class, [
                 'label' => 'Trier Par :',
                 'choices' => [
-                    'Pertinence'=>"autre",
-                    'Prix Croissant' => '1',
-                    'Prix Décroissant' => '2',
-                    'Nouveauté'=> '3',
+                    'Pertinence'=>"Default",
+                    'Prix Croissant' => 'Price_ASC',
+                    'Prix Décroissant' => 'Price_DESC',
+                    'Nouveauté'=> 'New',
                 ],
             ])
 
