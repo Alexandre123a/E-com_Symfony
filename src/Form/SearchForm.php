@@ -43,7 +43,7 @@ class SearchForm extends AbstractType
 
 
         ])
-            ->add('submit',SubmitType::class)
+
 
         ;
     }
@@ -51,7 +51,7 @@ class SearchForm extends AbstractType
     {
         $resolver->setDefaults([
             //'data_class' => SearchData::class,
-            'method' => 'GET',
+            'method' => 'POST',
             'csrf_protection' => false
         ]);
     }
