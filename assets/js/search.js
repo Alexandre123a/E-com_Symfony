@@ -1,12 +1,9 @@
-
-var form = document.getElementById('searchForm');
-
-
+/* Old AJAX
 function ajaxRequest() {
 
-    var keyword = document.getElementById('search_form_keywords');
-    var range = document.getElementById('search_form_range');
-    var xmlhttp = new XMLHttpRequest();
+    const keyword = document.getElementById('search_form_keywords');
+    let range = document.getElementById('search_form_range');
+    const xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange =
         function () {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -23,7 +20,8 @@ function ajaxRequest() {
     xmlhttp.send();
 
 }
-
+*/
+// New function AJAX by using fetch API (made by théo)
 const fetchData = async () => {
     const keyword = document.getElementById('search_form_keywords');
     const range = document.getElementById('search_form_range').valueAsNumber;
@@ -31,33 +29,12 @@ const fetchData = async () => {
     if(isNaN(newRange)) newRange = 12;
 
     const res = await fetch("result?keywords="+keyword.value+"&range="+newRange);
-    const html = await res.text();
-    document.getElementById("article-wrapper").innerHTML = html;
-    window.history.replaceState(null, null, "?step="+newRange);
+    document.getElementById("article-wrapper").innerHTML = await res.text();
+    window.history.replaceState(null, null, "?keywords="+keyword+"step="+newRange);
 }
 
-
+let form = document.getElementById('searchForm');
 form.onkeyup = (e) => fetchData();
 
-
-
-var range = document.getElementById('search_form_range');
-range.onchange = (e) => ajaxRequest()
-
-/*
-searchBar.onkeyup =
-function showHint() {
-    if (this.value().length == 0) {
-        document.getElementById("txtHint").innerHTML = "";
-        return;
-    } else {
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("txtHint").innerHTML = this.responseText;
-            }
-        };
-        xmlhttp.open("GET", "gethint.php?q=" + str, true);
-        xmlhttp.send();
-    }
-}*/
+let range = document.getElementById('search_form_range');
+range.onchange = (e) => fetchData();
