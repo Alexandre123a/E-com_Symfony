@@ -12,7 +12,7 @@ class GenreFixture extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create("fr_FR");
-        for ($i=0;$i< 10;$i++)
+        for ($i=0;$i< 4;$i++)
         {
             $genre = new Genre();
             $genre->setIntitule($faker->word);

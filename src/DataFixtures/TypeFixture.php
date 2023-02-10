@@ -16,7 +16,7 @@ class TypeFixture extends Fixture implements DependentFixtureInterface
     {
         $faker = Factory::create("fr_FR");
         $categorie = $manager->getRepository(Categorie::class)->findAll();
-        for($i=0;$i<100;$i++)
+        for($i=0;$i<36;$i++)
         {
             $type = new Type();
             $type->setIntitule($faker->word);

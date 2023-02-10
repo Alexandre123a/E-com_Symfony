@@ -15,7 +15,7 @@ class CategorieFixture extends Fixture implements DependentFixtureInterface
     {
         $faker = Factory::create("fr_FR");
         $genre = $manager->getRepository(Genre::class)->findAll();
-        for ($i=0;$i<100;$i++)
+        for ($i=0;$i<12;$i++)
         {
             $categorie = new Categorie();
             $categorie->setIntitule($faker->word);

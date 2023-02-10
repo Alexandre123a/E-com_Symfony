@@ -18,11 +18,11 @@ class ArticleStockFixture extends Fixture implements DependentFixtureInterface
     {
         $faker = Factory::create("fr_FR");
         $type = $manager->getRepository(Type::class)->findAll();
-        for ($i=0;$i<1000;$i++)
+        for ($i=0;$i<100;$i++)
         {
             $categorie = new ArticleStock();
             $categorie->setIntitule($faker->word);
-            $categorie->setPrix($faker->numberBetween(1,100000));
+            $categorie->setPrix($faker->numberBetween(1,10000));
             $categorie->setDescription($faker->realText);
 
             $categorie->setIdType($faker->randomElement($type));
