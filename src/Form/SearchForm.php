@@ -44,17 +44,14 @@ class SearchForm extends AbstractType
 
 
         ])
-            ->add('minPrice',RangeType::class, [
-                'attr' => [
-                    'min' => 0,
-                    'max' => 10000,
-                ]
-            ])
-            ->add('maxPrice',RangeType::class, [
-                'attr' => [
-                    'min' => 0,
-                    'max' => 10000,
-                ]
+            ->add('order', ChoiceType::class, [
+                'label' => 'Trier Par :',
+                'choices' => [
+                    'Pertinence'=>"autre",
+                    'Prix Croissant' => '1',
+                    'Prix Décroissant' => '2',
+                    'Nouveauté'=> '3',
+                ],
             ])
 
 
