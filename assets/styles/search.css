@@ -54,3 +54,6 @@ form input[Type=Text]{
     grid-row: auto;
     grid-column: auto;
 }
+.flex {
+    display: flex;
+}

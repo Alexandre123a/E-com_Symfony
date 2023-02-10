@@ -16,7 +16,10 @@
 
     {{ form_start(searchForm,{'attr':{'id' : 'searchForm' }}) }}
     {{ form_row(searchForm.keywords) }}
+    <div class="flex">
     {{ form_row(searchForm.range) }}
+        {{ form_row(searchForm.order) }}
+    </div>
     {{ form_end(searchForm) }}
 <div id="article-wrapper" class="article-wrapper">
 {% include 'search/result.html.twig' %}
