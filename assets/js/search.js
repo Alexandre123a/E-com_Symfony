@@ -30,7 +30,7 @@ const fetchData = async () => {
 
     const res = await fetch("result?keywords="+keyword.value+"&range="+newRange);
     document.getElementById("article-wrapper").innerHTML = await res.text();
-    window.history.replaceState(null, null, "?keywords="+keyword+"step="+newRange);
+    window.history.replaceState(null, null, "?keywords="+keyword.value+"&step="+newRange);
 }
 
 let form = document.getElementById('searchForm');
