@@ -2,7 +2,10 @@
         <a href="{{ path('app_article_stock_show', {'id': article.id}) }}">
             <div class="card">
                 <div class="container">
-                    <h4><b>{{ article.intitule }}</b></h4>
+                    <h4><b>{{ article.intitule }}</b><br>
+                        {{ article.prix }}€
+                    </h4>
+
                     <p>{{ article.description }} </p>
                 </div>
             </div>
