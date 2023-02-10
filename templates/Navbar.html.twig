@@ -1,6 +1,6 @@
 <div class="navbar">
     <a href="{{ path('app_acceuil') }}" class="home">Acceuil</a>
-    {% if app.request.getPathInfo != "/search" %}
+    {% if app.request.getPathInfo != "/search" or app.request.getPathInfo != "/ajax/search" %}
 
     <form name="searchBar" action="{{ path('app_search') }}" method="get">
         <input type="text" name="keywords">
