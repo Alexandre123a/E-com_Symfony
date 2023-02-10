@@ -13,10 +13,22 @@ function ajaxRequest() {
                 document.getElementById("article-wrapper").innerHTML = xmlhttp.responseText;
             }
         }
-    xmlhttp.open("GET", "result?keywords="+keyword.value+"&range="+range.value*4,true);
+    range = parseInt(range.value) * 4;
+    if(isNaN(range))
+    {
+        range = 12;
+    }
+
+    xmlhttp.open("GET", "result?keywords="+keyword.value+"&range="+range,true);
     xmlhttp.send();
 
 }
+
+
+
+
+
+
 var range = document.getElementById('search_form_range');
 range.onclick =
     function ajaxRequest2() {
