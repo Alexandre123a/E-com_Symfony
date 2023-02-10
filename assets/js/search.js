@@ -1,7 +1,7 @@
 
 var form = document.getElementById('searchForm');
 
-form.onkeyup =
+
 function ajaxRequest() {
 
     var keyword = document.getElementById('search_form_keywords');
@@ -24,35 +24,26 @@ function ajaxRequest() {
 
 }
 
+const fetchData = async () => {
+    const keyword = document.getElementById('search_form_keywords');
+    const range = document.getElementById('search_form_range').valueAsNumber;
+    let newRange = range * 4;
+    if(isNaN(newRange)) newRange = 12;
+
+    const res = await fetch("result?keywords="+keyword.value+"&range="+newRange);
+    const html = await res.text();
+    document.getElementById("article-wrapper").innerHTML = html;
+    window.history.replaceState(null, null, "?step="+newRange);
+}
 
 
+form.onkeyup = (e) => fetchData();
 
 
 
 var range = document.getElementById('search_form_range');
-range.onclick =
-    function ajaxRequest2() {
+range.onchange = (e) => ajaxRequest()
 
-        var keyword = document.getElementById('search_form_keywords');
-        var range = document.getElementById('search_form_range');
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange =
-            function () {
-                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    document.getElementById("article-wrapper").innerHTML = xmlhttp.responseText;
-                }
-            }
-
-            range = parseInt(range.value) * 4;
-        if(isNaN(range))
-        {
-            range = 12;
-        }
-        console.log(range);
-        xmlhttp.open("GET", "result?keywords="+keyword.value+"&range="+range,true);
-        xmlhttp.send();
-
-    }
 /*
 searchBar.onkeyup =
 function showHint() {
