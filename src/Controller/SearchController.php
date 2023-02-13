@@ -210,7 +210,7 @@ public function ctgRefresh(ManagerRegistry $doctrine,Request $request)
         else{
             $types = $repo->findAll();
         }
-        return $this->render('search/ctg.html.twig',[
+        return $this->render('search/types.html.twig',[
             'types' => $types,
         ]);
     }
