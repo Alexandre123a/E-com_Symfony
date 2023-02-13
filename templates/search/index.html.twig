@@ -38,11 +38,7 @@
         <div>
             <label for="search_form_type" class="required">Type :</label>
             <select id="search_form_type">
-                <option value=""></option>
-                {% for type in types %}
-
-                    <option value="{{ type.id }}">{{ type }}</option>
-                {% endfor %}
+                {% include 'search/types.html.twig' %}
             </select>
         </div>
     </div>
