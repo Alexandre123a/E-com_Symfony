@@ -42,13 +42,14 @@ class ArticleStockRepository extends ServiceEntityRepository
     /**
      * @return ArticleStock[] Returns an array of ArticleStock objects
      */
-    public function findByExampleField($value,$range): array
+    public function findByExampleField($value,$range,$order,$desc="ASC"): array
     {
         $qb = $this->createQueryBuilder('a')
             ->where('a.intitule LIKE :val')
             ->orWhere('a.description LIKE :val')
             ->setParameter('val',"%".$value."%")
             ->setMaxResults($range)
+            ->orderBy($order,$desc)
         ;
         $query = $qb->getQuery();
         return $query->execute();

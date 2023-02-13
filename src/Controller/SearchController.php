@@ -47,9 +47,29 @@ public function search(ManagerRegistry $doctrine,Request $request)
         $name = $request->get("keywords");
 
         $range = $request->get("range") ?:12;
+    $order = $request->get("order");
+
+        switch ($order){
+            case "Default":
+                $order = "a.id";
+                break;
+            case "Price_ASC":
+                $order = "a.prix";
+                break;
+            case "Price_DESC":
+                $order = "a.prix";
+                $desc = "DESC";
+                break;
+            case "New":
+                $order = "a.id";
+                $desc = "DESC";
+                break;
+            default:
+                $order = "a.id";
+        }
 
         $repository = $doctrine->getRepository(ArticleStock::class);
-        $articles = $repository->findByExampleField($name,$range);
+        $articles = $repository->findByExampleField($name,$range,$order);
 
         return $this->render('search/index.html.twig', [
             'searchForm' => $form->createView(),
@@ -64,9 +84,28 @@ public function search(ManagerRegistry $doctrine,Request $request)
         $name = $request->get("keywords");
 
         $range = $request->get("range") ?:12;
+        $desc = "ASC";
+        $order = $request->get("order");
+        switch ($order){
+            case "Default":
+                $order = "a.id";
+                break;
+            case "Price_ASC":
+                $order = "a.prix";
+                break;
+            case "Price_DESC":
+                $order = "a.prix";
+                $desc = "DESC";
+                break;
+            case "New":
+                $order = "a.id";
+                $desc = "DESC";
+                break;
+        }
+
 
         $repository = $doctrine->getRepository(ArticleStock::class);
-        $articles = $repository->findByExampleField($name,$range);
+        $articles = $repository->findByExampleField($name,$range,$order,$desc);
 
         return $this->render('search/result.html.twig', [
             'articles' => $articles,

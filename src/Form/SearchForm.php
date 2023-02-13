@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\ArticleStock;
 use App\Entity\Genre;
 use App\Form\Type\SearchType;
+use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -53,6 +54,22 @@ class SearchForm extends AbstractType
                     'Nouveauté'=> 'New',
                 ],
             ])
+            /*
+            ->add('Type',ChoiceType::class, [
+                'label' => 'Type d\'articles',
+                'choices' => [
+                    'default'=>"autre",
+                    '1' => '1',
+                    '2' => '2',
+                    '3'=> '3',
+                    '4'=> '4',
+                    '5'=> '5',
+                    '10'=> '10',
+                    '50'=> '50',
+                    '100'=> '100',
+                    '250'=> '250',
+                ],*/
+
 
 
         ;
