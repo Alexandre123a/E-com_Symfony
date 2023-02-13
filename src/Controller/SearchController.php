@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\ArticleStock;
 use App\Entity\Genre;
-use App\Entity\SearchPOO;
+
 use App\Form\SearchForm;
 use App\Repository\ArticleStockRepository;
 use Doctrine\Persistence\ManagerRegistry;
