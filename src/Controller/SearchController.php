@@ -198,6 +198,22 @@ public function ctgRefresh(ManagerRegistry $doctrine,Request $request)
             'categories' => $categories,
         ]);
     }
+    #[Route('/ajax/types',methods: ['GET'])]
+    public function typesRefresh(ManagerRegistry $doctrine,Request $request)
+    {
+        $ctg = $request->get('ctg');
+        $repo = $doctrine->getRepository(Type::class);
+        if($ctg) {
+
+            $types = $repo->findByRelation($ctg);
+        }
+        else{
+            $types = $repo->findAll();
+        }
+        return $this->render('search/ctg.html.twig',[
+            'types' => $types,
+        ]);
+    }
 
     /*
     #[Route('/search', name: 'app_search')]
