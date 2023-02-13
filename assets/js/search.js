@@ -34,17 +34,23 @@ const fetchData = async () => {
     if(isNaN(newRange)) newRange = 12;
 
 
-    const res = await fetch("result?keywords="+keyword.value+"&range="+newRange+"&order="+order+"&genre="+genre);
-    document.getElementById("article-wrapper").innerHTML = await res.text(); /*+"&ctg="+ctg+"&type="+type*/
-    window.history.replaceState(null, null, "?keywords="+keyword.value+"&step="+newRange+"&order="+order+"&genre="+genre);
+    const res = await fetch("result?keywords="+keyword.value+"&range="+newRange+"&order="+order+"&genre="+genre+"&ctg="+ctg);
+    document.getElementById("article-wrapper").innerHTML = await res.text(); /*+"&type="+type*/
+    window.history.replaceState(null, null, "?keywords="+keyword.value+"&step="+newRange+"&order="+order+"&genre="+genre+"&ctg="+ctg);
 }
 
 const fetchCtg = async () => {
-    const ctg = document.getElementById('search_form_ctg').value;
     const genre = document.getElementById('search_form_genre').value;
 
     const res = await fetch("ctg?genre="+genre);
     document.getElementById("search_form_ctg").innerHTML = await res.text();
+}
+
+const fetchTypes = async () => {
+    const ctg = document.getElementById('search_form_ctg').value;
+
+    const res = await fetch("types?ctg="+ctg);
+    document.getElementById("search_form_type").innerHTML = await res.text();
 }
 
 let form = document.getElementById('searchForm');
@@ -60,4 +66,10 @@ let genre = document.getElementById('search_form_genre');
 genre.onchange =(e) => {
     fetchData();
     fetchCtg();
+}
+
+let ctg = document.getElementById('search_form_ctg');
+ctg.onchange = (e) => {
+    fetchData();
+    fetchTypes();
 }
