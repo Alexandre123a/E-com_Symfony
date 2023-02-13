@@ -38,6 +38,14 @@ class TypeRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function findByRelation(int $id):array
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.idCategorie = :val')
+            ->setParameter('val',$id)
+            ->getQuery()
+            ->getResult();
+    }
 
 //    /**
 //     * @return Type[] Returns an array of Type objects

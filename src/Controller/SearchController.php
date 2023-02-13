@@ -87,8 +87,14 @@ public function search(ManagerRegistry $doctrine,Request $request)
         }
         elseif ($genre != "") {
 
+
             $categories = $repoCatego->findByRelation($genre);
-            $types = $repoType->findByRelation($categories);
+
+            foreach ($categories as $ct)
+            {
+
+                $types = $repoType->findByRelation($ct->getId());
+            }
         }
         else
         {
@@ -151,9 +157,13 @@ public function search(ManagerRegistry $doctrine,Request $request)
             $categories = $ctg;
         }
         elseif ($genre != "") {
-
             $categories = $repoCatego->findByRelation($genre);
-            $types = $repoType->findByRelation($categories);
+            foreach ($categories as $ct)
+            {
+
+                $types = $repoType->findByRelation($ct->getId());
+            }
+
         }
         else
         {
@@ -165,7 +175,27 @@ public function search(ManagerRegistry $doctrine,Request $request)
 
         return $this->render('search/result.html.twig', [
             'articles' => $articles,
+            'genres' => $genres,
+            'categories' => $categories,
+            'types' => $types
 
+        ]);
+    }
+
+    #[Route('/ajax/ctg',methods: ['GET'])]
+public function ctgRefresh(ManagerRegistry $doctrine,Request $request)
+    {
+        $genre = $request->get('genre');
+        $repo = $doctrine->getRepository(Categorie::class);
+        if($genre) {
+
+            $categories = $repo->findByRelation($genre);
+        }
+        else{
+            $categories = $repo->findAll();
+        }
+        return $this->render('search/ctg.html.twig',[
+            'categories' => $categories,
         ]);
     }
 

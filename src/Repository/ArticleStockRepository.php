@@ -65,6 +65,8 @@ class ArticleStockRepository extends ServiceEntityRepository
         if ($genre)
         {
             $qb
+                ->innerJoin('a.idType', 't')
+                ->innerJoin('t.idCategorie','c')
                 ->innerJoin('c.idGenre', 'g', Join::WITH, 'g.id = :genre')
                 ->setParameter('genre', $genre);
         }

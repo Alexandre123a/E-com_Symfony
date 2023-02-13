@@ -41,7 +41,7 @@ class CategorieRepository extends ServiceEntityRepository
     public function findByRelation(int $id):array
     {
         return $this->createQueryBuilder('a')
-            ->where('a.id_genre_id = :val')
+            ->where('a.idGenre = :val')
             ->setParameter('val',$id)
             ->getQuery()
             ->getResult();

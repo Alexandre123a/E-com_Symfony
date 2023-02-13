@@ -22,6 +22,7 @@
         <div>
         <label for="search_form_genre" class="required">Genres :</label>
             <select id="search_form_genre">
+                <option value=""></option>
                 {% for genre in genres %}
 
                     <option value="{{ genre.id }}">{{ genre }}</option>
@@ -31,15 +32,13 @@
         <div>
             <label for="search_form_ctg" class="required">Catégorie :</label>
             <select id="search_form_ctg">
-                {% for ctg in categories %}
-
-                    <option value="{{ ctg.id }}">{{ ctg }}</option>
-                {% endfor %}
+                {% include 'search/ctg.html.twig' %}
             </select>
         </div>
         <div>
             <label for="search_form_type" class="required">Type :</label>
             <select id="search_form_type">
+                <option value=""></option>
                 {% for type in types %}
 
                     <option value="{{ type.id }}">{{ type }}</option>
