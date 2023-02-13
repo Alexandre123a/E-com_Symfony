@@ -38,6 +38,14 @@ class CategorieRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function findByRelation(int $id):array
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.id_genre_id = :val')
+            ->setParameter('val',$id)
+            ->getQuery()
+            ->getResult();
+    }
 
 //    /**
 //     * @return Categorie[] Returns an array of Categorie objects

@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\ArticleStock;
+use App\Entity\Categorie;
 use App\Entity\Genre;
 
+use App\Entity\Type;
 use App\Form\SearchForm;
 use App\Repository\ArticleStockRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -50,6 +52,10 @@ public function search(ManagerRegistry $doctrine,Request $request)
         $range = $request->get("range") ?:12;
     $order = $request->get("order");
 
+    $genre = $request->get("genre");
+    $ctg = $request->get("ctg");
+    $type = $request->get("type");
+
         switch ($order){
             case "Default":
                 $order = "a.id";
@@ -69,17 +75,38 @@ public function search(ManagerRegistry $doctrine,Request $request)
                 $order = "a.id";
         }
 
-        $repository = $doctrine->getRepository(ArticleStock::class);
-        $articles = $repository->findByExampleField($name,$range,$order);
 
+        $repoType = $doctrine->getRepository(Type::class);
+        $repoCatego = $doctrine->getRepository(Categorie::class);
         $repoGenre = $doctrine->getRepository(Genre::class);
         $genres = $repoGenre->findAll();
+
+        if ($ctg != ""){
+            $types = $repoType->findByRelation($ctg);
+        }
+        elseif ($genre != "") {
+
+            $categories = $repoCatego->findByRelation($genre);
+            $types = $repoType->findByRelation($categories);
+        }
+        else
+        {
+            $categories = $repoCatego->findAll();
+            $types = $repoType->findAll();
+        }
+
+
+
+        $repository = $doctrine->getRepository(ArticleStock::class);
+        $articles = $repository->findByExampleField($name,$range,$order);
 
         return $this->render('search/index.html.twig', [
             'searchForm' => $form->createView(),
             'articles' => $articles,
             'name' => $name,
             'genres' => $genres,
+            'categories' => $categories,
+            'types' => $types
 
         ]);
     }
