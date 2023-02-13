@@ -19,6 +19,14 @@
     <div class="flex">
     {{ form_row(searchForm.range) }}
         {{ form_row(searchForm.order) }}
+        <div>
+        <label for="search_form_ctg" class="required">Catégorie :</label>
+            <select id="search_form_ctg">
+                {% for genre in genres %}
+                    <option value="{{ genre }}">{{ genre }}</option>
+                {% endfor %}
+            </select>
+        </div>
     </div>
     {{ form_end(searchForm) }}
 <div id="article-wrapper" class="article-wrapper">

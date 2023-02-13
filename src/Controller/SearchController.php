@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\ArticleStock;
+use App\Entity\Genre;
 use App\Entity\SearchPOO;
 use App\Form\SearchForm;
 use App\Repository\ArticleStockRepository;
@@ -71,10 +72,14 @@ public function search(ManagerRegistry $doctrine,Request $request)
         $repository = $doctrine->getRepository(ArticleStock::class);
         $articles = $repository->findByExampleField($name,$range,$order);
 
+        $repoGenre = $doctrine->getRepository(Genre::class);
+        $genres = $repoGenre->findAll();
+
         return $this->render('search/index.html.twig', [
             'searchForm' => $form->createView(),
             'articles' => $articles,
             'name' => $name,
+            'genres' => $genres,
 
         ]);
     }
