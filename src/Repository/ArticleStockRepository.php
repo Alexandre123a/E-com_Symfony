@@ -56,13 +56,14 @@ class ArticleStockRepository extends ServiceEntityRepository
                 ->innerJoin('a.idType', 't', Join::WITH, 't.id = :type')
                 ->setParameter('type', $type);
         }
-        if ($ctg)
+        elseif ($ctg)
         {
             $qb
+                ->innerJoin('a.idType', 't')
             ->innerJoin('t.idCategorie', 'c', Join::WITH, 'c.id = :ctg')
         ->setParameter('ctg', $ctg);
         }
-        if ($genre)
+        elseif ($genre)
         {
             $qb
                 ->innerJoin('a.idType', 't')
