@@ -83,6 +83,7 @@ public function search(ManagerRegistry $doctrine,Request $request)
 
         if ($ctg != ""){
             $types = $repoType->findByRelation($ctg);
+            $categories = $ctg;
         }
         elseif ($genre != "") {
 
@@ -98,8 +99,8 @@ public function search(ManagerRegistry $doctrine,Request $request)
 
 
         $repository = $doctrine->getRepository(ArticleStock::class);
-        $articles = $repository->findByExampleField($name,$range,$order);
-
+        $articles = $repository->findByExampleField($name,$range,$order,$type,$ctg,$genre);
+        dump($type);
         return $this->render('search/index.html.twig', [
             'searchForm' => $form->createView(),
             'articles' => $articles,
@@ -118,6 +119,11 @@ public function search(ManagerRegistry $doctrine,Request $request)
         $range = $request->get("range") ?:12;
         $desc = "ASC";
         $order = $request->get("order");
+
+        $genre = $request->get("genre");
+        $ctg = $request->get("ctg");
+        $type = $request->get("type");
+
         switch ($order){
             case "Default":
                 $order = "a.id";
@@ -135,9 +141,27 @@ public function search(ManagerRegistry $doctrine,Request $request)
                 break;
         }
 
+        $repoType = $doctrine->getRepository(Type::class);
+        $repoCatego = $doctrine->getRepository(Categorie::class);
+        $repoGenre = $doctrine->getRepository(Genre::class);
+        $genres = $repoGenre->findAll();
 
+        if ($ctg != ""){
+            $types = $repoType->findByRelation($ctg);
+            $categories = $ctg;
+        }
+        elseif ($genre != "") {
+
+            $categories = $repoCatego->findByRelation($genre);
+            $types = $repoType->findByRelation($categories);
+        }
+        else
+        {
+            $categories = $repoCatego->findAll();
+            $types = $repoType->findAll();
+        }
         $repository = $doctrine->getRepository(ArticleStock::class);
-        $articles = $repository->findByExampleField($name,$range,$order,$desc);
+        $articles = $repository->findByExampleField($name,$range,$order,$type,$ctg,$genre,$desc);
 
         return $this->render('search/result.html.twig', [
             'articles' => $articles,

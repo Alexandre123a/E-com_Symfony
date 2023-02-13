@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\ArticleStock;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -42,15 +43,31 @@ class ArticleStockRepository extends ServiceEntityRepository
     /**
      * @return ArticleStock[] Returns an array of ArticleStock objects
      */
-    public function findByExampleField($value,$range,$order,$desc="ASC"): array
+    public function findByExampleField($value,$range,$order,$type,$ctg,$genre,$desc="ASC"): array
     {
         $qb = $this->createQueryBuilder('a')
             ->where('a.intitule LIKE :val')
             ->orWhere('a.description LIKE :val')
-            ->setParameter('val',"%".$value."%")
+            ->setParameter('val', "%" . $value . "%")
             ->setMaxResults($range)
-            ->orderBy($order,$desc)
-        ;
+            ->orderBy($order, $desc);
+        if ($type) {
+            $qb
+                ->innerJoin('a.idType', 't', Join::WITH, 't.id = :type')
+                ->setParameter('type', $type);
+        }
+        if ($ctg)
+        {
+            $qb
+            ->innerJoin('t.idCategorie', 'c', Join::WITH, 'c.id = :ctg')
+        ->setParameter('ctg', $ctg);
+        }
+        if ($genre)
+        {
+            $qb
+                ->innerJoin('c.idGenre', 'g', Join::WITH, 'g.id = :genre')
+                ->setParameter('genre', $genre);
+        }
         $query = $qb->getQuery();
         return $query->execute();
     }
