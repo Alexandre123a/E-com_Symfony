@@ -34,9 +34,9 @@ const fetchData = async () => {
     if(isNaN(newRange)) newRange = 12;
 
 
-    const res = await fetch("result?keywords="+keyword.value+"&range="+newRange+"&order="+order+"&genre="+genre+"&ctg="+ctg);
-    document.getElementById("article-wrapper").innerHTML = await res.text(); /*+"&type="+type*/
-    window.history.replaceState(null, null, "?keywords="+keyword.value+"&step="+newRange+"&order="+order+"&genre="+genre+"&ctg="+ctg);
+    const res = await fetch("result?keywords="+keyword.value+"&range="+newRange+"&order="+order+"&genre="+genre+"&ctg="+ctg+"&type="+type);
+    document.getElementById("article-wrapper").innerHTML = await res.text(); /**/
+    window.history.replaceState(null, null, "?keywords="+keyword.value+"&step="+newRange+"&order="+order+"&genre="+genre+"&ctg="+ctg+"&type="+type);
 }
 
 const fetchCtg = async () => {
@@ -73,3 +73,6 @@ ctg.onchange = (e) => {
     fetchData();
     fetchTypes();
 }
+
+let types = document.getElementById('search_form_type');
+types.onchange = (e) => fetchData();
