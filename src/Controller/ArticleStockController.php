@@ -3,14 +3,22 @@
 namespace App\Controller;
 
 use App\Entity\ArticleStock;
+use App\Entity\LignePanier;
+use App\Entity\Panier;
 use App\Form\ArticleStockType;
 use App\Repository\ArticleStockRepository;
+use App\Repository\PanierRepository;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[Route('/article/stock')]
 class ArticleStockController extends AbstractController
@@ -77,25 +85,29 @@ class ArticleStockController extends AbstractController
 
         return $this->redirectToRoute('app_article_stock_index', [], Response::HTTP_SEE_OTHER);
     }
-    #[Route('/search',name: 'app_article_search', methods: ['GET'])]
-    public function ajaxAction(Request $request) {
-        $articles = $this->getDoctrine()
-            ->getRepository(ArticleStockRepository::class)
-            ->findAll();
+    #[Route('/add/panier', methods: ['GET'])]
+    public function addToCart(ManagerRegistry $doctrine,Request $request,UserInterface $user,EntityManagerInterface $entityManager,PanierRepository $panierRepository,ArticleStockRepository $articleStockRepository) {
+        $itemID  = $request->get('id');
 
-        if ($request->isXmlHttpRequest() || $request->query->get('showJson') == 1) {
-            $jsonData = array();
-            $idx = 0;
-            foreach($articles as $article) {
-                $temp = array(
-                    'intitule' => $article->getIntitule(),
-                    'description' => $article->getDescription(),
-                );
-                $jsonData[$idx++] = $temp;
-            }
-            return new JsonResponse($jsonData);
-        } else {
-            return $this->render('article_stock/ajax.html.twig');
+        $panier = new Panier();
+        $idUser= $user->getID();
+        $panier = $panierRepository->findByUserID($idUser);
+        if ($panier == null){
+            $panier->setIdUser($user);
+            $entityManager->persist($panier);
+
         }
+
+
+        $lignePanier = new LignePanier();
+        $item = $articleStockRepository->findOneByID($itemID);
+        $lignePanier->setIdPanier($panier);
+        $lignePanier->setIdStock($item);
+
+        $entityManager->persist($lignePanier);
+        $entityManager->flush();
+        return new Response("Ajout avec succès");
+
+
     }
 }

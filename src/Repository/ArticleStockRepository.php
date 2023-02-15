@@ -84,6 +84,15 @@ class ArticleStockRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
+    public function findOneByID(int $id):?ArticleStock
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->where('a.id = :val')
+            ->setParameter('val',$id)
+            ;
+        $query = $qb->getQuery();
+        return $query->getOneOrNullResult();
+    }
     public function findTenByRandom(): array
     {
         $maxIDQb = $this->createQueryBuilder('a')

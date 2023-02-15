@@ -38,6 +38,14 @@ class PanierRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function findByUserID(int $userId):?Panier
+    {
+        $query = $this->createQueryBuilder('p')
+            ->where('p.idUser = :val')
+            ->setParameter('val',$userId);
+        $qb = $query->getQuery();
+        return $qb->getOneOrNullResult();
+    }
 
 //    /**
 //     * @return Panier[] Returns an array of Panier objects

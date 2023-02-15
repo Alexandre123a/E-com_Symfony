@@ -23,9 +23,12 @@
     </table>
 
     {% if is_granted('ROLE_USER') %}
-        <a href="{{ path('app_panier') }}">
-            <button>Ajouter au panier</button>
-        </a>
+        {% block javascripts %}{{ encore_entry_script_tags('app_panier') }}{{ parent() }}{% endblock %}
+
+            <div id="idItem" hidden>{{ article_stock.id }}</div>
+            <button id="addPanier">Ajouter au panier</button>
+            <div id="Result"></div>
+
     {% endif %}
 
     {% if is_granted('ROLE_ADMIN') %}

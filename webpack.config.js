@@ -23,6 +23,7 @@ Encore
     .addEntry('app_acceuil','./assets/js/acceuil.js')
     .addEntry('app', './assets/app.js')
     .addEntry('app_search','./assets/js/search.js')
+    .addEntry('app_panier','./assets/js/panier.js')
 
     .addStyleEntry('css_acceuil','./assets/styles/acceuil.css')
     .addStyleEntry('css_register','./assets/styles/register.css')
