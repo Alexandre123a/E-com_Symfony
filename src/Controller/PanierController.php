@@ -28,7 +28,7 @@ public function show(UserInterface $user,PanierRepository $panierRepo,ArticleSto
     foreach ($lignearticles as $lignearticle)
     {
         $article = $articleRepo->find($lignearticle->getIdStock());
-$listArticle[] = $article;
+        $listArticle[] = $article;
         $totalPrice += $article->getPrix();
     }
 
