@@ -30,6 +30,7 @@ Encore
     .addStyleEntry('css_login','./assets/styles/login.css')
     .addStyleEntry('css_search','./assets/styles/search.css')
     .addStyleEntry('css_article','./assets/styles/article.css')
+    .addStyleEntry('css_cart','./assets/styles/cart.css')
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
 
