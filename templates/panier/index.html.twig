@@ -1,9 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PanierController!{% endblock %}
+{% block title %}Mon Panier!{% endblock %}
 
 {% block body %}
 
 
+
+        <div class="article-wrapper">
+        {% for article in articles %}
+            <a href="{{ path('app_article_stock_show', {'id': article.id}) }}">
+                <div class="card">
+                    <div class="container">
+                        <h4><b>{{ article.intitule }}</b><br>
+                            {{ article.prix }}€
+                        </h4>
+
+                        <p>{{ article.description }} </p>
+                    </div>
+                </div>
+            </a>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucun Article dans le Panier</td>
+            </tr>
+        {% endfor %}
+        </div>
+    <div class="totalPrice">{{ prix }}</div>
 
 {% endblock %}

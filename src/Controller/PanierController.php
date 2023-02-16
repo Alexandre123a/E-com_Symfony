@@ -11,13 +11,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class PanierController extends AbstractController
 {
-    #[Route('/panier', name: 'app_panier')]
-    public function index(): Response
-    {
-        return $this->render('panier/index.html.twig', [
-            'controller_name' => 'PanierController',
-        ]);
-    }
     #[Route('/panier', name: 'app_cart')]
 public function show(UserInterface $user,PanierRepository $panierRepo,ArticleStockRepository $articleRepo):Response
 {
@@ -35,7 +28,7 @@ public function show(UserInterface $user,PanierRepository $panierRepo,ArticleSto
 
     return $this->render('panier/index.html.twig',[
         'prix' => $totalPrice,
-        'listArticle' => $listArticle,
+        'articles' => $listArticle
 
     ]);
 }
