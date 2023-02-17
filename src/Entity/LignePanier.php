@@ -17,9 +17,12 @@ class LignePanier
     #[ORM\JoinColumn(nullable: false)]
     private ?Panier $idPanier = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(targetEntity: "articleStock",cascade: ['remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?ArticleStock $idStock = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $quantity = null;
 
     public function getId(): ?int
     {
@@ -47,6 +50,23 @@ class LignePanier
     {
         $this->idStock = $idStock;
 
+        return $this;
+    }
+
+    public function getQuantity(): ?int
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(?int $quantity): self
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+    public function addQuantity():self
+    {
+        $this->quantity +=1;
         return $this;
     }
 }

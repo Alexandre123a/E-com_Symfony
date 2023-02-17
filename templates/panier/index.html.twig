@@ -13,18 +13,21 @@
 
                 <div class="card">
                     <div class="container">
-                        <h4><b>{{ article.intitule }}</b><br>
-                            {{ article.prix }}€
+                        <h4><b>{{ article.article.intitule }}</b><br>
+                            {{ article.article.prix }}€
                         </h4>
 
-                        <p>{{ article.description }} </p>
-                        <div>
+                        <p>{{ article.article.description }} </p>
+                        <div class="options">
                             <button>
-                                <a href="{{ path('app_article_stock_show', {'id': article.id}) }}">Voir en Boutique</a>
+                                <a href="{{ path('app_article_stock_show', {'id': article.article.id}) }}">Voir en Boutique</a>
                             </button>
+                            <div class="quantity">
+                                {{ article.quantity}}
+                            </div>
                             <button id="suppCart">
                                 Supprimer du Panier
-                                <div hidden id="idItem">{{ article.id }}</div>
+                                <div hidden id="idItem">{{ article.article.id }}</div>
                             </button>
                         </div>
                     </div>

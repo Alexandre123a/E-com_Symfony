@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Panier;
 use App\Repository\ArticleStockRepository;
 use App\Repository\PanierRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,13 +16,18 @@ class PanierController extends AbstractController
 public function show(UserInterface $user,PanierRepository $panierRepo,ArticleStockRepository $articleRepo):Response
 {
     $panier = $panierRepo->findByUserID($user->getId());
+    if ($panier == null)
+    {
+        $panier= new Panier();
+        $panier->setIdUser($user);
+    }
     $lignearticles = $panier->getLignePaniers();
     $totalPrice=0;
     $listArticle= [];
     foreach ($lignearticles as $lignearticle)
     {
         $article = $articleRepo->find($lignearticle->getIdStock());
-        $listArticle[] = $article;
+        $listArticle[] = ['article'=>$article,'quantity'=>$lignearticle->getQuantity()];
         $totalPrice += $article->getPrix();
     }
 

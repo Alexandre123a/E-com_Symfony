@@ -7,6 +7,7 @@ use App\Entity\LignePanier;
 use App\Entity\Panier;
 use App\Form\ArticleStockType;
 use App\Repository\ArticleStockRepository;
+use App\Repository\LignePanierRepository;
 use App\Repository\PanierRepository;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManager;
@@ -86,24 +87,28 @@ class ArticleStockController extends AbstractController
         return $this->redirectToRoute('app_article_stock_index', [], Response::HTTP_SEE_OTHER);
     }
     #[Route('/add/panier', methods: ['GET'])]
-    public function addToCart(ManagerRegistry $doctrine,Request $request,UserInterface $user,EntityManagerInterface $entityManager,PanierRepository $panierRepository,ArticleStockRepository $articleStockRepository) {
+    public function addToCart(ManagerRegistry $doctrine,Request $request,UserInterface $user,EntityManagerInterface $entityManager,PanierRepository $panierRepository,ArticleStockRepository $articleStockRepository,LignePanierRepository $lignePanierRepository) {
         $itemID  = $request->get('id');
 
-        $panier = new Panier();
         $idUser= $user->getID();
         $panier = $panierRepository->findByUserID($idUser);
         if ($panier == null){
+            $panier=new Panier();
             $panier->setIdUser($user);
             $entityManager->persist($panier);
 
         }
 
 
-        $lignePanier = new LignePanier();
-        $item = $articleStockRepository->findOneByID($itemID);
-        $lignePanier->setIdPanier($panier);
-        $lignePanier->setIdStock($item);
 
+        $item = $articleStockRepository->findOneByID($itemID);
+        $lignePanier = $lignePanierRepository->findOneByArticleStock($itemID);
+        if ($lignePanier == null) {
+            $lignePanier = new LignePanier();
+            $lignePanier->setIdPanier($panier);
+            $lignePanier->setIdStock($item);
+        }
+        $lignePanier->addQuantity();
         $entityManager->persist($lignePanier);
         $entityManager->flush();
         return new Response("Ajout avec succès");

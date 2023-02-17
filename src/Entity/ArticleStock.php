@@ -108,11 +108,4 @@ class ArticleStock
         }
         return $this->render('article_stock/articleById.html.twig', ['product'=>$article]);
     }
-    #[Route('/search?keyword={name}', name: 'app_article_search')]
-    public function searchArticle(ManagerRegistry $doctrine,string $name):Response
-    {
-
-        $article = $doctrine->getRepository(ArticleStock::class)->findByExampleField($name);
-        return $this->render('search/index.html.twig', ['articles'=>$article]);
-    }
 }
