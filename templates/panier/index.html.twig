@@ -22,11 +22,14 @@
                             <button>
                                 <a href="{{ path('app_article_stock_show', {'id': article.article.id}) }}">Voir en Boutique</a>
                             </button>
+                            <button>
+                                &plus;
+                            </button>
                             <div class="quantity">
                                 {{ article.quantity}}
                             </div>
                             <button id="suppCart">
-                                Supprimer du Panier
+                                &minus;
                                 <div hidden id="idItem">{{ article.article.id }}</div>
                             </button>
                         </div>
