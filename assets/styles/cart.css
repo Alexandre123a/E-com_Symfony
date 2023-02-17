@@ -29,3 +29,8 @@
     grid-row: auto;
     grid-column: auto;
 }
+.options
+{
+    display: flex;
+    flex-direction: row;
+}
