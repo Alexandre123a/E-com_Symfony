@@ -10,7 +10,7 @@
 
         <div class="article-wrapper">
         {% for article in articles %}
-            <a href="{{ path('app_article_stock_show', {'id': article.id}) }}">
+
                 <div class="card">
                     <div class="container">
                         <h4><b>{{ article.intitule }}</b><br>
@@ -18,6 +18,15 @@
                         </h4>
 
                         <p>{{ article.description }} </p>
+                        <div>
+                            <button>
+                                <a href="{{ path('app_article_stock_show', {'id': article.id}) }}">Voir en Boutique</a>
+                            </button>
+                            <button id="suppCart">
+                                Supprimer du Panier
+                                <div hidden id="idItem">{{ article.id }}</div>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </a>
@@ -27,6 +36,6 @@
             </tr>
         {% endfor %}
         </div>
-    <div class="totalPrice">{{ prix }}</div>
+    <div class="totalPrice"><h1>{{ prix }}</h1></div>
 
 {% endblock %}
