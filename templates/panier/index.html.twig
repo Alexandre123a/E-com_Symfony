@@ -13,7 +13,7 @@
         <div class="article-wrapper">
         {% for article in articles %}
 
-                <div class="card">
+                <div class="card" id="item{{ article.article.id }}">
                     <div class="container">
                         <h4><b>{{ article.article.intitule }}</b><br>
                             {{ article.article.prix }}€
