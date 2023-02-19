@@ -112,7 +112,5 @@ class ArticleStockController extends AbstractController
         $entityManager->persist($lignePanier);
         $entityManager->flush();
         return new Response("Ajout avec succès");
-
-
     }
 }

@@ -4,6 +4,8 @@
 
 {% block stylesheets %}{{ encore_entry_link_tags('css_cart') }}{{ parent() }}{% endblock %}
 
+{% block javascripts %}{{ encore_entry_script_tags('app_cart') }}{{ parent() }}{% endblock %}
+
 {% block body %}
 
 
@@ -22,17 +24,17 @@
                             <button>
                                 <a href="{{ path('app_article_stock_show', {'id': article.article.id}) }}">Voir en Boutique</a>
                             </button>
-                            <button>
+                            <button class="addPanier" id="{{ article.article.id }}">
                                 &plus;
                             </button>
-                            <div class="quantity">
+                            <div id="Quantity{{ article.article.id }}">
                                 {{ article.quantity}}
                             </div>
-                            <button id="suppCart">
+                            <button class="delPanier" id="{{ article.article.id }}">
                                 &minus;
-                                <div hidden id="idItem">{{ article.article.id }}</div>
                             </button>
                         </div>
+                        <div id="Result{{ article.article.id }}"></div>
                     </div>
                 </div>
             {% else %}
@@ -41,6 +43,6 @@
             </tr>
         {% endfor %}
         </div>
-    <div class="totalPrice"><h1>{{ prix }}</h1></div>
+    <div class="totalPrice"><h1 id="Price">{{ prix }}</h1></div>
 
 {% endblock %}
