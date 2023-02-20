@@ -87,7 +87,7 @@ class ArticleStockController extends AbstractController
         return $this->redirectToRoute('app_article_stock_index', [], Response::HTTP_SEE_OTHER);
     }
     #[Route('/add/panier', methods: ['GET'])]
-    public function addToCart(ManagerRegistry $doctrine,Request $request,UserInterface $user,EntityManagerInterface $entityManager,PanierRepository $panierRepository,ArticleStockRepository $articleStockRepository,LignePanierRepository $lignePanierRepository) {
+    public function addToCart(Request $request,UserInterface $user,EntityManagerInterface $entityManager,PanierRepository $panierRepository,ArticleStockRepository $articleStockRepository,LignePanierRepository $lignePanierRepository) {
         $itemID  = $request->get('id');
 
         $idUser= $user->getID();
