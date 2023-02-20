@@ -32,7 +32,7 @@ public function show(UserInterface $user,PanierRepository $panierRepo,ArticleSto
         foreach ($lignearticles as $lignearticle) {
             $article = $articleRepo->find($lignearticle->getIdStock());
             $listArticle[] = ['article' => $article, 'quantity' => $lignearticle->getQuantity()];
-            $totalPrice += $article->getPrix();
+            $totalPrice += $article->getPrix() * $lignearticle->getQuantity();
         }
 
 
@@ -48,22 +48,11 @@ public function show(UserInterface $user,PanierRepository $panierRepo,ArticleSto
 
     $idUser= $user->getID();
     $panier = $panierRepository->findByUserID($idUser);
-    if ($panier == null){
-        $panier=new Panier();
-        $panier->setIdUser($user);
-        $entityManager->persist($panier);
-
-    }
-
-
-
     $item = $articleStockRepository->findOneByID($itemID);
-    $lignePanier = $lignePanierRepository->findOneByArticleStock($itemID);
-    if ($lignePanier == null) {
-        $lignePanier = new LignePanier();
-        $lignePanier->setIdPanier($panier);
-        $lignePanier->setIdStock($item);
-    }
+
+    $idPanier = $panier->getId();
+    $lignePanier = $lignePanierRepository->findOneByArticleStockAndByIdCart($itemID,$idPanier);
+
     $lignePanier->addQuantity();
     $entityManager->persist($lignePanier);
     $entityManager->flush();
@@ -75,5 +64,34 @@ public function show(UserInterface $user,PanierRepository $panierRepo,ArticleSto
 
     return new Response(json_encode($return));
 }
+    #[Route('/del/panier', methods: ['GET'])]
+    public function delOfCart(ManagerRegistry $doctrine,Request $request,UserInterface $user,EntityManagerInterface $entityManager,PanierRepository $panierRepository,ArticleStockRepository $articleStockRepository,LignePanierRepository $lignePanierRepository)
+    {
+        $itemID = $request->get('id');
+
+        $idUser = $user->getID();
+        $panier = $panierRepository->findByUserID($idUser);
+        $item = $articleStockRepository->findOneByID($itemID);
+        $lignePanier = $lignePanierRepository->findOneByArticleStockAndByIdCart($itemID,$panier->getId());
+        $return = [];
+        $lignePanier->subQuantity();
+        if ($lignePanier->getQuantity() <=0)
+        {
+            $lignePanierRepository->remove($lignePanier,true);
+            $return["del"] = "Article retiré du panier";
+
+        }
+        else {
+            $entityManager->persist($lignePanier);
+            $entityManager->flush();
+            $return["quantity"]=$lignePanier->getQuantity();
+            $return[]= "Retrait avec succès";
+            $return[]= $item->getPrix();
+        }
+        return new Response(json_encode($return));
+
+
+    }
+
 
 }
