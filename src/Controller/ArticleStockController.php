@@ -102,7 +102,7 @@ class ArticleStockController extends AbstractController
 
 
         $item = $articleStockRepository->findOneByID($itemID);
-        $lignePanier = $lignePanierRepository->findOneByArticleStock($itemID);
+        $lignePanier = $lignePanierRepository->findOneByArticleStockAndByIdCart($itemID,$panier->getId());
         if ($lignePanier == null) {
             $lignePanier = new LignePanier();
             $lignePanier->setIdPanier($panier);
