@@ -69,4 +69,9 @@ class LignePanier
         $this->quantity +=1;
         return $this;
     }
+    public function subQuantity():self
+    {
+        $this->quantity -=1;
+        return $this;
+    }
 }
