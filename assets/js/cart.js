@@ -17,6 +17,7 @@ async function addPanier(id){
 }
 
 async function suppPanier(id){
+    
     const itemID = id;
     const res = await fetch("del/panier?id="+itemID);
     const tab = await res.json();
@@ -38,11 +39,11 @@ async function suppPanier(id){
 let btnAddPanier = document.getElementsByClassName('addPanier');
 for (let element of btnAddPanier)
 {
-    element.onclick = (e) => addPanier(element.id);
+    element.onclick = () => addPanier(element.id);
 }
 
 let btnDelPanier = document.getElementsByClassName('delPanier');
 for (let element of btnDelPanier)
 {
-    element.onclick = (e) => suppPanier(element.id);
+    element.onclick = () => suppPanier(element.id);
 }
