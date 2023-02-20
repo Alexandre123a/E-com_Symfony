@@ -48,6 +48,16 @@ class LignePanierRepository extends ServiceEntityRepository
         $query = $qb->getQuery();
         return $query->getOneOrNullResult();
     }
+    public  function findOneByArticleStockAndByIdCart(int $idArticleStock,int $idPanier):? LignePanier
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->where('a.idStock = :item')
+            ->andWhere('a.idPanier = :panier')
+            ->setParameter('item',$idArticleStock)
+            ->setParameter('panier',$idPanier);
+        $query = $qb->getQuery();
+        return $query->getOneOrNullResult();
+    }
 
 //    /**
 //     * @return LignePanier[] Returns an array of LignePanier objects
