@@ -17,13 +17,14 @@ async function addPanier(id){
 }
 
 async function suppPanier(id){
-    const itemId = id;
+    const itemID = id;
     const res = await fetch("del/panier?id="+itemID);
     const tab = await res.json();
 
-    if(tab[2])
+    if(tab["del"] !== undefined)
     {
         document.getElementById("item"+itemID).remove();
+        document.getElementById("RemoveSucess").innerHTML = tab["del"];
     }
     document.getElementById("Result"+itemID).innerHTML = await tab[0];
     document.getElementById("Quantity"+itemID).innerHTML = await tab["quantity"];
