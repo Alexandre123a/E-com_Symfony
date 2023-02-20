@@ -45,11 +45,17 @@
 
 
         {% for article in articles %}
-            {% dump article.0 %}
         <div class="carouselSlides">
             <a href="{{ path('app_article_stock_show', {'id': article.0.id}) }}">
-            <img src="{{ asset('build/images/paysage3.09f1f610.png') }}" >
-            <div> {{ article.0.intitule }}</div>
+                <div class="card">
+                    <div class="container">
+                        <h4><b>{{ article.0.intitule }}</b><br>
+                            {{ article.0.prix }}€
+                        </h4>
+
+                        <p>{{ article.0.description }} </p>
+                    </div>
+                </div>
             </a>
         </div>
         {% endfor %}
